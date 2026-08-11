@@ -6,12 +6,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero({ onOpenFreePass }) {
   const heroRef = useRef(null);
-  const badgeRef = useRef(null);
   const subtitleRef = useRef(null);
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const buttonsRef = useRef(null);
-  const pillsRef = useRef(null);
+
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -19,12 +18,11 @@ export default function Hero({ onOpenFreePass }) {
       // Intro timeline
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo(badgeRef.current, { opacity: 0, y: -20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.7 })
-        .fromTo(subtitleRef.current, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6 }, '-=0.4')
+      tl.fromTo(subtitleRef.current, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6 })
         .fromTo(titleRef.current, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.8 }, '-=0.4')
         .fromTo(descRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
         .fromTo(buttonsRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
-        .fromTo(pillsRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.3')
+
         .fromTo(imageRef.current, { opacity: 0, scale: 0.85, rotate: 2 }, { opacity: 1, scale: 1, rotate: 0, duration: 1 }, '-=0.8');
 
       // Parallax effect on scroll
@@ -46,11 +44,6 @@ export default function Hero({ onOpenFreePass }) {
     <section className="home section" id="home" ref={heroRef}>
       <div className="home__container container grid">
         <div className="home__data">
-          <div className="home__welcome-badge" ref={badgeRef}>
-            <i className="ri-fire-fill"></i>
-            <span>💪 BIENVENIDOS A BEXC 2.0 HURLINGHAM</span>
-          </div>
-
           <h2 className="home__subtitle" ref={subtitleRef}>TU CAMBIO</h2>
           <h1 className="home__title" ref={titleRef}>EMPIEZA HOY</h1>
 
@@ -67,12 +60,6 @@ export default function Hero({ onOpenFreePass }) {
             <a href="#pricing" className="button button__flex hero__cta-secondary">
               Ver Planes <i className="ri-price-tag-3-line"></i>
             </a>
-          </div>
-
-          <div className="hero__features-pills" ref={pillsRef}>
-            <span><i className="ri-checkbox-circle-fill"></i> Sin contrato de permanencia</span>
-            <span><i className="ri-checkbox-circle-fill"></i> Nutricionista Incluida</span>
-            <span><i className="ri-checkbox-circle-fill"></i> Rutinas por QR</span>
           </div>
         </div>
 

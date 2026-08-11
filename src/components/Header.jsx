@@ -39,7 +39,6 @@ export default function Header({ onOpenFreePass }) {
       <nav className="nav container">
         <a href="#home" className="nav__logo">
           <img src="/img/logo-nav.png" alt="BEXC 2.0 logo" />
-          BEXC <span>2.0</span>
         </a>
 
         <div className={`nav__menu ${isMenuOpen ? 'show-menu' : ''}`} id="nav-menu">

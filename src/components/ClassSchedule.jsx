@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 export default function ClassSchedule({ onOpenFreePass }) {
   const [activeDay, setActiveDay] = useState('lunes');
+  const gridRef = useRef(null);
 
   const scheduleData = {
     lunes: [
@@ -57,6 +59,16 @@ export default function ClassSchedule({ onOpenFreePass }) {
     { id: 'sabado', label: 'Sábado' },
   ];
 
+  useEffect(() => {
+    if (gridRef.current) {
+      gsap.fromTo(
+        gridRef.current.children,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, stagger: 0.05, duration: 0.4, ease: 'power2.out' }
+      );
+    }
+  }, [activeDay]);
+
   return (
     <section className="schedule section" id="schedule">
       <div className="container">
@@ -83,7 +95,7 @@ export default function ClassSchedule({ onOpenFreePass }) {
           ))}
         </div>
 
-        <div className="schedule__grid">
+        <div className="schedule__grid" ref={gridRef}>
           {scheduleData[activeDay].map((item, index) => (
             <div key={index} className="schedule__card">
               <div className="schedule__time">

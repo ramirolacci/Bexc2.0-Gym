@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Pricing({ onOpenFreePass }) {
+  const sectionRef = useRef(null);
+
   const plans = [
     {
       id: 'efectivo',
@@ -56,8 +62,27 @@ export default function Pricing({ onOpenFreePass }) {
     },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.pricing__card', {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="pricing section" id="pricing">
+    <section className="pricing section" id="pricing" ref={sectionRef}>
       <div className="container">
         <div className="section__data">
           <h2 className="section__subtitle">Invertí en tu salud</h2>

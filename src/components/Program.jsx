@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Program({ onOpenFreePass }) {
+  const sectionRef = useRef(null);
+
   const programs = [
     {
       id: 'funcional',
@@ -67,8 +73,26 @@ export default function Program({ onOpenFreePass }) {
     },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.program__card', {
+        opacity: 0,
+        y: 50,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="program section" id="program">
+    <section className="program section" id="program" ref={sectionRef}>
       <div className="container">
         <div className="section__data">
           <h2 className="section__subtitle">Entrená a tu ritmo</h2>

@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Testimonials() {
+  const sectionRef = useRef(null);
+
   const reviews = [
     {
       id: 1,
@@ -28,8 +34,26 @@ export default function Testimonials() {
     },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.testimonial__card', {
+        opacity: 0,
+        y: 40,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="testimonials section" id="testimonials">
+    <section className="testimonials section" id="testimonials" ref={sectionRef}>
       <div className="container">
         <div className="section__data">
           <h2 className="section__subtitle">Comunidad BEXC</h2>

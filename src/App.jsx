@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import FreePassModal from './components/FreePassModal';
-import Program from './components/Program';
+import Gallery from './components/Gallery';
 import ClassSchedule from './components/ClassSchedule';
 import ChooseUs from './components/ChooseUs';
 import Pricing from './components/Pricing';
@@ -25,7 +25,7 @@ export default function App() {
       
       <main className="main">
         <Hero onOpenFreePass={openFreePass} />
-        <Program onOpenFreePass={openFreePass} />
+        <Gallery />
         <ClassSchedule onOpenFreePass={openFreePass} />
         <ChooseUs onOpenFreePass={openFreePass} />
         <Pricing onOpenFreePass={openFreePass} />

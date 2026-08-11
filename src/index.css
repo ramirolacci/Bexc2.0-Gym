@@ -436,9 +436,16 @@ img { max-width: 100%; height: auto; display: block; }
   height: 100%;
 }
 
+/* Triangles container — behind the image */
+.home__triangles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .home__img-wrapper {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -446,11 +453,12 @@ img { max-width: 100%; height: auto; display: block; }
 
 .home__img {
   width: auto;
-  height: 90vh;
+  height: 88vh;
   max-height: calc(100vh - var(--header-height));
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 20px 50px rgba(0, 112, 243, 0.45));
+  /* No glow — clean image */
+  filter: none;
 }
 
 .home__triangle {
@@ -463,6 +471,51 @@ img { max-width: 100%; height: auto; display: block; }
 .home__triangle-1 { width: 38%; height: 100vh; background: var(--first-color); }
 .home__triangle-2 { width: 60%; height: 100vh; background: var(--first-color-alt); opacity: 0.85; }
 .home__triangle-3 { width: 85%; height: 100vh; background: rgba(0, 112, 243, 0.12); }
+
+/* ---- Hero highlight mini-cards ---- */
+.hero__highlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.hero__highlight-card {
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  transition: border-color 0.3s;
+}
+
+.hero__highlight-card:hover {
+  border-color: rgba(0, 112, 243, 0.35);
+}
+
+.hero__highlight-icon {
+  font-size: 1.5rem;
+  color: var(--first-color-light);
+  flex-shrink: 0;
+}
+
+.hero__highlight-title {
+  font-family: var(--title-font);
+  font-weight: 700;
+  font-size: var(--small-font-size);
+  color: var(--title-color);
+  line-height: 1.2;
+}
+
+.hero__highlight-sub {
+  font-size: var(--smaller-font-size);
+  color: var(--text-color-light);
+  margin-top: 0.1rem;
+}
 
 /* Mobile Hero centering */
 @media screen and (max-width: 899px) {

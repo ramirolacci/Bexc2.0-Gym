@@ -1,1 +1,19 @@
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build output
+dist
+
+# Environment & IDE
+.env
+.env.local
+.vscode
+.idea
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

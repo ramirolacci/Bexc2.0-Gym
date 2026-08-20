@@ -975,17 +975,75 @@ img { max-width: 100%; height: auto; display: block; }
   overflow: hidden;
 }
 
-.choose__container {
+.choose__top-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
 }
 
 @media screen and (min-width: 900px) {
-  .choose__container {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+  .choose__top-grid {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 3.5rem;
   }
+}
+
+.choose__images {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  min-height: 380px;
+}
+
+/* Triangles contained in image block extending to left screen edge */
+.choose__triangles {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2.5rem;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.choose__triangle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.choose__triangle-1 { width: 340px; height: 340px; background: var(--first-color); opacity: 0.25; }
+.choose__triangle-2 { width: 240px; height: 240px; background: var(--first-color-alt); opacity: 0.2; }
+.choose__triangle-3 { width: 140px; height: 140px; background: var(--first-color-dark); opacity: 0.3; }
+
+.choose__img-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.choose__img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: none;
+  transition: transform 0.4s ease;
+}
+
+.choose__img:hover {
+  transform: scale(1.02);
 }
 
 .choose__content {
@@ -993,17 +1051,27 @@ img { max-width: 100%; height: auto; display: block; }
   flex-direction: column;
 }
 
+.section__data--left {
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 1.25rem;
+}
+
+.section__data--left .section__titles {
+  justify-content: flex-start;
+}
+
 .choose__description {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   line-height: 1.7;
-  max-width: 500px;
+  max-width: 100%;
+  text-align: left;
 }
 
 .choose__amenities-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
-  margin-bottom: 2.5rem;
 }
 
 @media screen and (min-width: 600px) {
@@ -1021,6 +1089,13 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 1.35rem;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.choose__amenity-card:hover {
+  border-color: rgba(0, 230, 138, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 230, 138, 0.15);
 }
 
 .choose__amenity-icon-box {
@@ -1052,8 +1127,21 @@ img { max-width: 100%; height: auto; display: block; }
 
 .choose__data {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .choose__data {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .choose__data {
+    grid-template-columns: 1fr;
+  }
 }
 
 .choose__group {
@@ -1062,6 +1150,12 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 1.25rem;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+.choose__group:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 230, 138, 0.3);
 }
 
 .choose__number {
@@ -1077,33 +1171,6 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: var(--small-font-size);
   color: var(--text-color-light);
 }
-
-.choose__images {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  position: relative;
-  min-height: 300px;
-}
-
-.choose__img {
-  width: 100%;
-  max-width: 420px;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 20px 40px rgba(0, 112, 243, 0.3));
-}
-
-.choose__triangle {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  clip-path: polygon(0 0, 0 100%, 100% 100%);
-}
-
-.choose__triangle-1 { width: 300px; height: 300px; background: var(--first-color); opacity: 0.25; }
-.choose__triangle-2 { width: 200px; height: 200px; background: var(--first-color-alt); opacity: 0.2; }
-.choose__triangle-3 { width: 100px; height: 100px; background: var(--first-color-dark); opacity: 0.3; }
 
 /* ============================================
    PRICING

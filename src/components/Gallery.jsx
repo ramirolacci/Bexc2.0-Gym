@@ -24,15 +24,13 @@ export default function Gallery() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.gallery__item', {
-        opacity: 0,
-        y: 30,
-        scale: 0.96,
-        stagger: 0.08,
-        duration: 0.6,
-        ease: 'power3.out',
+        y: 25,
+        stagger: 0.06,
+        duration: 0.5,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 75%',
+          start: 'top 85%',
         },
       });
     }, sectionRef);

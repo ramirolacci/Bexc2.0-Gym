@@ -98,14 +98,21 @@ export default function ClassSchedule({ onOpenFreePass }) {
         <div className="schedule__grid" ref={gridRef}>
           {scheduleData[activeDay].map((item, index) => (
             <div key={index} className="schedule__card">
-              <div className="schedule__time">
-                <i className="ri-time-line"></i> {item.time}
+              <div className="schedule__card-header">
+                <div className="schedule__time">
+                  <i className="ri-time-line"></i> {item.time}
+                </div>
               </div>
               <div className="schedule__info">
                 <h4 className="schedule__class-name">{item.class}</h4>
-                <span className="schedule__meta">
-                  <i className="ri-user-star-line"></i> {item.trainer} • <i className="ri-map-pin-2-line"></i> {item.room}
-                </span>
+                <div className="schedule__meta">
+                  <span className="schedule__meta-item">
+                    <i className="ri-user-star-line"></i> {item.trainer}
+                  </span>
+                  <span className="schedule__meta-item">
+                    <i className="ri-map-pin-2-line"></i> {item.room}
+                  </span>
+                </div>
               </div>
               <button className="schedule__book-btn button" onClick={onOpenFreePass}>
                 Reservar

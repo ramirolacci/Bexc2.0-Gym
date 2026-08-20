@@ -25,70 +25,93 @@ export default function CalculateBmi({ onOpenFreePass }) {
         type: 'warning',
         bmi,
         status: 'Bajo Peso / Delgado',
-        recommendation: 'Te recomendamos nuestras disciplinas de Body Pump y Musculación para hipertrofia y desarrollo muscular sólido.',
+        recommendation: (
+          <>
+            Te recomendamos nuestras disciplinas de <strong>Body Pump</strong> y <strong>Musculación</strong> para ganar masa muscular de forma sólida y progresiva.
+          </>
+        ),
       });
     } else if (bmi < 25) {
       setResult({
         type: 'success',
         bmi,
         status: 'IMC Saludable 🥳',
-        recommendation: '¡Excelente estado! Mantenete en forma combinando CrossFit, Spinning y Funcional.',
+        recommendation: (
+          <>
+            ¡Excelente estado físico! Te sugerimos mantener tu vitalidad combinando <strong>CrossFit WOD</strong>, <strong>Spinning</strong> y <strong>Funcional</strong>.
+          </>
+        ),
       });
     } else if (bmi < 30) {
       setResult({
         type: 'warning',
         bmi,
         status: 'Sobrepeso Leve',
-        recommendation: 'Ideal para iniciar con Spinning, Core-HIIT y GAP para acelerar el metabolismo y quemar grasa eficientemente.',
+        recommendation: (
+          <>
+            Ideal para comenzar clases de <strong>Spinning</strong>, <strong>Core-HIIT</strong> y <strong>GAP</strong> para acelerar el metabolismo y quemar grasa eficientemente.
+          </>
+        ),
       });
     } else {
       setResult({
         type: 'alert',
         bmi,
         status: 'Sobrepeso / Obesidad',
-        recommendation: 'Te sugerimos iniciar con Entrenamiento Funcional graduado y caminatas asistidas en sala con nuestros profesores.',
+        recommendation: (
+          <>
+            Te sugerimos iniciar con <strong>Entrenamiento Funcional</strong> adaptado y rutinas de caminata guiadas por nuestros profesores en sala.
+          </>
+        ),
       });
     }
   };
 
   return (
-    <section className="calculate section">
-      <div className="calculate__container container grid">
+    <section className="calculate section" id="bmi">
+      <div className="calculate__container container">
         <div className="calculate__content">
-          <div className="section__titles">
-            <h1 className="section__title-border">CALCULÁ TU</h1>
-            <h1 className="section__title">IMC Y METAS</h1>
+          <div className="calculate__header">
+            <h2 className="section__subtitle">Evaluación de salud</h2>
+            <h1 className="calculate__main-title">
+              <span className="calculate__title-border">CALCULÁ TU</span> IMC Y METAS
+            </h1>
+            <p className="calculate__description">
+              El Índice de Masa Corporal (IMC) evalúa tu rango de peso óptimo y te sugiere las mejores clases en BEXC 2.0.
+            </p>
           </div>
 
-          <p className="calculate__description">
-            El Índice de Masa Corporal (IMC) evalúa tu rango de peso óptimo y te sugiere las mejores clases en BEXC 2.0.
-          </p>
-
           <form className="calculate__form" onSubmit={handleCalculate}>
-            <div className="calculate__box">
-              <input
-                type="number"
-                placeholder="Altura en cm (ej: 175)"
-                className="calculate__input"
-                value={cm}
-                onChange={(e) => setCm(e.target.value)}
-              />
-              <label className="calculate__label">cm</label>
+            <div className="calculate__field">
+              <label className="calculate__field-title">Altura</label>
+              <div className="calculate__box">
+                <input
+                  type="number"
+                  placeholder="Ingresa tu altura en cm"
+                  className="calculate__input"
+                  value={cm}
+                  onChange={(e) => setCm(e.target.value)}
+                />
+                <span className="calculate__unit">cm</span>
+              </div>
             </div>
 
-            <div className="calculate__box">
-              <input
-                type="number"
-                placeholder="Peso en kg (ej: 70)"
-                className="calculate__input"
-                value={kg}
-                onChange={(e) => setKg(e.target.value)}
-              />
-              <label className="calculate__label">kg</label>
+            <div className="calculate__field">
+              <label className="calculate__field-title">Peso</label>
+              <div className="calculate__box">
+                <input
+                  type="number"
+                  placeholder="Ingresa tu peso en kg"
+                  className="calculate__input"
+                  value={kg}
+                  onChange={(e) => setKg(e.target.value)}
+                />
+                <span className="calculate__unit">kg</span>
+              </div>
             </div>
 
-            <button type="submit" className="button button__flex">
-              Calcular Mi Recomendación <i className="ri-arrow-right-line"></i>
+            <button type="submit" className="button calculate__submit-btn">
+              Calcular mi IMC <i className="ri-calculator-line"></i>
             </button>
           </form>
 
@@ -97,18 +120,16 @@ export default function CalculateBmi({ onOpenFreePass }) {
               {result.bmi ? (
                 <>
                   <div className="result__header">
-                    <span className="result__bmi-val">Tu IMC: <strong>{result.bmi}</strong></span>
-                    <span className="result__status">{result.status}</span>
+                    <span className="result__bmi-val">
+                      Tu IMC: <strong>{result.bmi}</strong>
+                    </span>
+                    <span className="result__status-badge">
+                      {result.status}
+                    </span>
                   </div>
                   <p className="result__recommendation">
                     <i className="ri-lightbulb-line"></i> {result.recommendation}
                   </p>
-                  <button
-                    className="button button__flex result__cta-btn"
-                    onClick={onOpenFreePass}
-                  >
-                    Probar esta clase gratis <i className="ri-whatsapp-line"></i>
-                  </button>
                 </>
               ) : (
                 <p className="result__error-text">{result.text}</p>
@@ -117,7 +138,9 @@ export default function CalculateBmi({ onOpenFreePass }) {
           )}
         </div>
 
-        <img src="/img/calculate-img.png" alt="Calculadora IMC BEXC" className="calculate__img" />
+        <div className="calculate__img-container">
+          <img src="/img/calculate-img.png" alt="Calculadora IMC BEXC" className="calculate__img" />
+        </div>
       </div>
     </section>
   );

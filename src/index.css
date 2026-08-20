@@ -1688,33 +1688,76 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================
-   FAQ
+   FAQ (2 COLUMNS & GOOGLE MAPS PREVIEW)
    ============================================ */
+.faq {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 0 3.5rem;
+}
+
 .faq__container {
-  max-width: 820px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+  .faq__container {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
+    align-items: flex-start;
+  }
+}
+
+.faq__content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  width: 100%;
+}
+
+.faq__header-data {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.faq__header-data .section__titles {
+  justify-content: flex-start;
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   width: 100%;
 }
 
 .faq__item {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 
-.faq__item:hover,
+.faq__item:hover {
+  border-color: rgba(0, 112, 243, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 112, 243, 0.15);
+}
+
 .faq__item-open {
   border-color: var(--first-color-light);
+  background: linear-gradient(180deg, rgba(0, 112, 243, 0.1), var(--card-bg));
+  box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
 }
 
-.faq__header {
+.faq__item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1723,14 +1766,15 @@ img { max-width: 100%; height: auto; display: block; }
 
 .faq__question {
   font-size: 1rem;
+  font-weight: 700;
+  color: var(--title-color);
   line-height: 1.4;
-  flex: 1;
 }
 
 .faq__icon {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--first-color-light);
-  transition: transform 0.35s;
+  transition: transform 0.3s;
   flex-shrink: 0;
 }
 
@@ -1738,16 +1782,92 @@ img { max-width: 100%; height: auto; display: block; }
   transform: rotate(180deg);
 }
 
-.faq__content {
+.faq__answer-box {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .faq__answer {
   font-size: var(--small-font-size);
   color: var(--text-color-light);
-  line-height: 1.7;
+  line-height: 1.65;
+}
+
+/* Google Maps Card - Spans exact height from 1st question to last question */
+.faq__map-wrapper {
+  width: 100%;
+  align-self: stretch;
+}
+
+@media screen and (min-width: 992px) {
+  .faq__map-wrapper {
+    margin-top: 7.2rem;
+    height: calc(100% - 7.2rem);
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.faq__map-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  height: 100%;
+}
+
+.faq__map-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.faq__map-pin {
+  font-size: 2.2rem;
+  color: #ff3b30;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(255, 59, 48, 0.5));
+}
+
+.faq__map-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+.faq__map-address {
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+}
+
+.faq__map-iframe-box {
+  width: 100%;
+  flex-grow: 1;
+  min-height: 260px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.faq__map-footer {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.faq__map-btn {
+  width: auto;
+  align-self: flex-start;
+  padding: 12px 24px;
+  font-size: 0.95rem;
 }
 
 /* ============================================

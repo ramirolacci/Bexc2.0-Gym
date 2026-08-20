@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const faqs = [
     {
@@ -26,7 +26,7 @@ export default function Faq() {
     },
     {
       q: '¿Dónde está ubicado el gimnasio en Hurlingham?',
-      a: 'Estamos ubicados en Tte. Gral. Julio Argentino Roca 1301, Hurlingham, Provincia de Buenos Aires.',
+      a: 'Estamos ubicados en Av. Tte. Gral. Julio Argentino Roca 1301, Hurlingham, Provincia de Buenos Aires.',
     },
   ];
 
@@ -36,33 +36,74 @@ export default function Faq() {
 
   return (
     <section className="faq section" id="faq">
-      <div className="container">
-        <div className="section__data">
-          <h2 className="section__subtitle">Resolvemos tus dudas</h2>
-          <div className="section__titles">
-            <h1 className="section__title-border">PREGUNTAS</h1>
-            <h1 className="section__title">FRECUENTES</h1>
+      <div className="faq__container container">
+        <div className="faq__content">
+          <div className="section__data faq__header-data">
+            <h2 className="section__subtitle">Resolvemos tus dudas</h2>
+            <div className="section__titles">
+              <h1 className="section__title-border">PREGUNTAS</h1>
+              <h1 className="section__title">FRECUENTES</h1>
+            </div>
+          </div>
+
+          <div className="faq__list">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className={`faq__item ${isOpen ? 'faq__item-open' : ''}`}
+                  onClick={() => toggleFaq(index)}
+                >
+                  <div className="faq__item-header">
+                    <h4 className="faq__question">{faq.q}</h4>
+                    <i className={`ri-arrow-down-s-line faq__icon ${isOpen ? 'rotate-icon' : ''}`}></i>
+                  </div>
+                  {isOpen && (
+                    <div className="faq__answer-box">
+                      <p className="faq__answer">{faq.a}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="faq__container">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`faq__item ${openIndex === index ? 'faq__item-open' : ''}`}
-              onClick={() => toggleFaq(index)}
-            >
-              <div className="faq__header">
-                <h4 className="faq__question">{faq.q}</h4>
-                <i className={`ri-chevron-down-line faq__icon ${openIndex === index ? 'rotate-icon' : ''}`}></i>
+        <div className="faq__map-wrapper">
+          <div className="faq__map-card">
+            <div className="faq__map-header">
+              <i className="ri-map-pin-2-fill faq__map-pin"></i>
+              <div>
+                <h4 className="faq__map-title">Ubicación del Gimnasio</h4>
+                <p className="faq__map-address">Tte. Gral. Julio A. Roca 1301, Hurlingham</p>
               </div>
-              {openIndex === index && (
-                <div className="faq__content">
-                  <p className="faq__answer">{faq.a}</p>
-                </div>
-              )}
             </div>
-          ))}
+
+            <div className="faq__map-iframe-box">
+              <iframe
+                title="Ubicación BEXC 2.0 Gym Hurlingham"
+                src="https://maps.google.com/maps?q=Av.+Tte.+Gral.+Julio+Argentino+Roca+1301,+Hurlingham,+Buenos+Aires&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) contrast(1.2) brightness(0.9)' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+            <div className="faq__map-footer">
+              <a
+                href="https://maps.google.com/?q=Av.+Tte.+Gral.+Julio+Argentino+Roca+1301,+Hurlingham"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button faq__map-btn"
+              >
+                Abrir en Google Maps <i className="ri-external-link-line"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -10,7 +10,6 @@ import CalculateBmi from './components/CalculateBmi';
 import Testimonials from './components/Testimonials';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
-import ScrollUp from './components/ScrollUp';
 import WhatsAppButton from './components/WhatsAppButton';
 
 export default function App() {
@@ -35,7 +34,6 @@ export default function App() {
       </main>
 
       <Footer />
-      <ScrollUp />
       <WhatsAppButton />
 
       <FreePassModal isOpen={isFreePassOpen} onClose={closeFreePass} />

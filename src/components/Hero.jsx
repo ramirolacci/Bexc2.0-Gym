@@ -12,30 +12,27 @@ const highlights = [
 ];
 
 export default function Hero({ onOpenFreePass }) {
-  const heroRef    = useRef(null);
+  const heroRef     = useRef(null);
   const subtitleRef = useRef(null);
-  const titleRef   = useRef(null);
-  const descRef    = useRef(null);
-  const buttonsRef = useRef(null);
-  const cardsRef   = useRef(null);
-  const imageRef   = useRef(null);
-  const triRef     = useRef(null);
+  const titleRef    = useRef(null);
+  const descRef     = useRef(null);
+  const buttonsRef  = useRef(null);
+  const cardsRef    = useRef(null);
+  const imageRef    = useRef(null);
+  const triRef      = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Left side: text chain
       tl.fromTo(subtitleRef.current, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6 })
         .fromTo(titleRef.current,    { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.8 }, '-=0.3')
         .fromTo(descRef.current,     { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
         .fromTo(buttonsRef.current,  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
         .fromTo(cardsRef.current,    { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
-        // Right side: triangles first, then image on top
         .fromTo(triRef.current,   { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.8 }, '-=0.6')
         .fromTo(imageRef.current, { opacity: 0, y: 40, scale: 0.93 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, '-=0.5');
 
-      // Subtle parallax on image only
       gsap.to(imageRef.current, {
         y: 30,
         scrollTrigger: {
@@ -89,14 +86,12 @@ export default function Hero({ onOpenFreePass }) {
 
         {/* RIGHT SIDE */}
         <div className="home__images">
-          {/* Triangles rendered first (lower z-index) */}
           <div className="home__triangles" ref={triRef}>
             <div className="home__triangle home__triangle-3"></div>
             <div className="home__triangle home__triangle-2"></div>
             <div className="home__triangle home__triangle-1"></div>
           </div>
 
-          {/* Image rendered on top (higher z-index) */}
           <div className="home__img-wrapper" ref={imageRef}>
             <img src="/img/home-img.png" alt="Atleta BEXC Gym" className="home__img" />
           </div>

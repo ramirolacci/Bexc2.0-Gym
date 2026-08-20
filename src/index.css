@@ -243,9 +243,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .nav__logo img {
-  width: 5rem;
+  width: 6.8rem;
   height: auto;
-  filter: drop-shadow(0 0 14px rgba(0, 112, 243, 0.8)) brightness(1.3);
+  filter: none;
 }
 
 .nav__toggle {
@@ -736,6 +736,33 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.lb-opening {
+  animation: lbFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.lb-closing {
+  animation: lbFadeOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.gallery__lb-img-swap {
+  animation: lbImageSwap 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lbFadeIn {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(20px); }
+}
+
+@keyframes lbFadeOut {
+  from { opacity: 1; backdrop-filter: blur(20px); }
+  to { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+@keyframes lbImageSwap {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .gallery__lb-close {
@@ -1472,6 +1499,12 @@ img { max-width: 100%; height: auto; display: block; }
   max-width: 480px;
   width: 100%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: resultCardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes resultCardFadeIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .result__header {
@@ -1782,9 +1815,26 @@ img { max-width: 100%; height: auto; display: block; }
   transform: rotate(180deg);
 }
 
-.faq__answer-box {
-  margin-top: 1rem;
-  padding-top: 1rem;
+/* Smooth CSS Grid Accordion Transition */
+.faq__answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.faq__item-open .faq__answer-wrapper {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0.75rem;
+}
+
+.faq__answer-inner {
+  min-height: 0;
+  padding-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -1794,18 +1844,18 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1.65;
 }
 
-/* Google Maps Card - Spans exact height from 1st question to last question */
+/* Google Maps Card - Exactly matches the height of the 6 closed questions list */
 .faq__map-wrapper {
   width: 100%;
-  align-self: stretch;
+  align-self: flex-start;
 }
 
 @media screen and (min-width: 992px) {
   .faq__map-wrapper {
     margin-top: 7.2rem;
-    height: calc(100% - 7.2rem);
-    display: flex;
-    flex-direction: column;
+    position: sticky;
+    top: 6rem;
+    height: 538px;
   }
 }
 
@@ -1820,7 +1870,7 @@ img { max-width: 100%; height: auto; display: block; }
   justify-content: space-between;
   gap: 1rem;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-  height: 100%;
+  height: 538px;
 }
 
 .faq__map-header {
@@ -1883,6 +1933,42 @@ img { max-width: 100%; height: auto; display: block; }
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+}
+
+.modal-overlay--in {
+  animation: modalOverlayFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.modal-overlay--out {
+  animation: modalOverlayFadeOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.modal-content--in {
+  animation: modalContentZoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-content--out {
+  animation: modalContentZoomOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes modalOverlayFadeIn {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(16px); }
+}
+
+@keyframes modalOverlayFadeOut {
+  from { opacity: 1; backdrop-filter: blur(16px); }
+  to { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+@keyframes modalContentZoomIn {
+  from { opacity: 0; transform: scale(0.92) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes modalContentZoomOut {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.94) translateY(10px); }
 }
 
 .modal-content {
@@ -2362,5 +2448,37 @@ img { max-width: 100%; height: auto; display: block; }
 .result__error-text {
   color: var(--text-color-light);
   font-size: var(--small-font-size);
+}
+
+/* ============================================
+   MODEL 3D VIEWER
+   ============================================ */
+.model3d-canvas-container {
+  width: 100%;
+  height: 82vh;
+  min-height: 550px;
+  position: relative;
+  overflow: visible;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.model3d-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  overflow: visible;
+}
+
+.model3d-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+
+.model3d-canvas:active {
+  cursor: grabbing;
 }
 

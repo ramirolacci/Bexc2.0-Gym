@@ -38,7 +38,7 @@ export default function Header({ onOpenFreePass }) {
     <header className={`header ${isHeaderBg ? 'bg-header' : ''}`} id="header">
       <nav className="nav container">
         <a href="#home" className="nav__logo">
-          <img src="/img/logo-nav.png" alt="BEXC 2.0 logo" />
+          <img src="/img/logo-nav.png" alt="BEXC 2.0 logo" className="nav__logo-img" />
         </a>
 
         <div className={`nav__menu ${isMenuOpen ? 'show-menu' : ''}`} id="nav-menu">
@@ -54,11 +54,11 @@ export default function Header({ onOpenFreePass }) {
             </li>
             <li className="nav__item">
               <a
-                href="#program"
-                className={`nav__link ${activeSection === 'program' ? 'active-link' : ''}`}
+                href="#gallery"
+                className={`nav__link ${activeSection === 'gallery' ? 'active-link' : ''}`}
                 onClick={closeMenu}
               >
-                Disciplinas
+                Galería
               </a>
             </li>
             <li className="nav__item">

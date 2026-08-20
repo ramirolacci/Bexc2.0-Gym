@@ -1,11 +1,56 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [messageColor, setMessageColor] = useState('');
   const formRef = useRef();
+  const footerRef = useRef();
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.footer__brand-box', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 90%',
+        },
+      });
+
+      gsap.from('.footer__content > div', {
+        y: 30,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 90%',
+        },
+      });
+
+      gsap.from('.footer__group', {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.footer__group',
+          start: 'top 95%',
+        },
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -36,7 +81,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="footer section" id="footer">
+    <footer className="footer section" id="footer" ref={footerRef}>
       <div className="footer__container container">
         <div className="footer__brand-box">
           <div className="footer__brand-header">

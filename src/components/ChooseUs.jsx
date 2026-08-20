@@ -44,15 +44,81 @@ export default function ChooseUs({ onOpenFreePass }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Counter 1: 0 to 500
+      // 1. Left side Image & Triangles Reveal
+      gsap.fromTo(
+        '.choose__images',
+        { opacity: 0, x: -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+
+      // 2. Right side Header Reveal
+      gsap.fromTo(
+        '.choose__content .section__data',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+
+      // 3. Description paragraph
+      gsap.fromTo(
+        '.choose__description',
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 78%',
+          },
+        }
+      );
+
+      // 4. Amenities Grid Stagger Reveal
+      gsap.fromTo(
+        '.choose__amenity-card',
+        { opacity: 0, y: 25, scale: 0.96 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          stagger: 0.08,
+          duration: 0.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.choose__amenities-grid',
+            start: 'top 82%',
+          },
+        }
+      );
+
+      // 5. Stat Counter 1: 0 to 500
       const obj1 = { val: 0 };
       gsap.to(obj1, {
         val: 500,
         duration: 2,
         ease: 'power1.out',
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
+          trigger: '.choose__data',
+          start: 'top 88%',
         },
         onUpdate: () => {
           if (count1Ref.current) {
@@ -61,15 +127,15 @@ export default function ChooseUs({ onOpenFreePass }) {
         },
       });
 
-      // Counter 2: 0 to 9
+      // 6. Stat Counter 2: 0 to 9
       const obj2 = { val: 0 };
       gsap.to(obj2, {
         val: 9,
         duration: 1.5,
         ease: 'power1.out',
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
+          trigger: '.choose__data',
+          start: 'top 88%',
         },
         onUpdate: () => {
           if (count2Ref.current) {
@@ -78,28 +144,22 @@ export default function ChooseUs({ onOpenFreePass }) {
         },
       });
 
-      // Amenities stagger
-      gsap.from('.choose__amenity-card', {
-        y: 20,
-        stagger: 0.08,
-        duration: 0.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
-      });
-
-      // Image animation
-      gsap.from('.choose__img', {
-        y: 20,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
-      });
+      // 7. Stat Cards Stagger Reveal
+      gsap.fromTo(
+        '.choose__group',
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.choose__data',
+            start: 'top 90%',
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();

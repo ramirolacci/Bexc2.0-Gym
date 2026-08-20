@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ClassSchedule({ onOpenFreePass }) {
   const [activeDay, setActiveDay] = useState('lunes');
+  const sectionRef = useRef(null);
   const gridRef = useRef(null);
 
   const scheduleData = {
@@ -59,18 +63,48 @@ export default function ClassSchedule({ onOpenFreePass }) {
     { id: 'sabado', label: 'Sábado' },
   ];
 
+  // GSAP ScrollTrigger for Section entrance
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.schedule .section__data', {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+        },
+      });
+
+      gsap.from('.schedule__tabs', {
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.schedule__tabs',
+          start: 'top 88%',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // GSAP Stagger animation when changing active day tab
   useEffect(() => {
     if (gridRef.current) {
       gsap.fromTo(
         gridRef.current.children,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, stagger: 0.05, duration: 0.4, ease: 'power2.out' }
+        { opacity: 0, y: 20, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, stagger: 0.06, duration: 0.45, ease: 'power2.out' }
       );
     }
   }, [activeDay]);
 
   return (
-    <section className="schedule section" id="schedule">
+    <section className="schedule section" id="schedule" ref={sectionRef}>
       <div className="container">
         <div className="section__data">
           <h2 className="section__subtitle">Planificá tu semana</h2>

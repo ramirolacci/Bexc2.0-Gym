@@ -59,11 +59,11 @@ export default function Faq() {
                     <h4 className="faq__question">{faq.q}</h4>
                     <i className={`ri-arrow-down-s-line faq__icon ${isOpen ? 'rotate-icon' : ''}`}></i>
                   </div>
-                  {isOpen && (
-                    <div className="faq__answer-box">
+                  <div className="faq__answer-wrapper">
+                    <div className="faq__answer-inner">
                       <p className="faq__answer">{faq.a}</p>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}

@@ -19,35 +19,65 @@ const photos = [
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState(null);
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
+  const [shouldRenderLb, setShouldRenderLb] = useState(false);
+  const [isLbClosing, setIsLbClosing] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.gallery__item', {
-        y: 25,
-        stagger: 0.06,
-        duration: 0.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
+      gsap.fromTo(
+        '.gallery__item',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.06,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 85%',
+          },
+        }
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    if (lightbox !== null) {
+      setActivePhotoIndex(lightbox);
+      setShouldRenderLb(true);
+      setIsLbClosing(false);
+    } else if (shouldRenderLb) {
+      setIsLbClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRenderLb(false);
+        setIsLbClosing(false);
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [lightbox]);
+
+  const closeLightbox = () => {
+    setIsLbClosing(true);
+    setTimeout(() => {
+      setLightbox(null);
+    }, 250);
+  };
+
   // Keyboard navigation for lightbox
   useEffect(() => {
-    if (lightbox === null) return;
+    if (!shouldRenderLb) return;
     const handleKey = (e) => {
-      if (e.key === 'Escape') setLightbox(null);
-      if (e.key === 'ArrowRight') setLightbox((p) => (p + 1) % photos.length);
-      if (e.key === 'ArrowLeft') setLightbox((p) => (p - 1 + photos.length) % photos.length);
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') setLightbox((p) => (p === null ? 0 : (p + 1) % photos.length));
+      if (e.key === 'ArrowLeft') setLightbox((p) => (p === null ? 0 : (p - 1 + photos.length) % photos.length));
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [lightbox]);
+  }, [shouldRenderLb]);
 
   const renderPhotoCard = (photo, index, itemClass) => (
     <div
@@ -68,6 +98,8 @@ export default function Gallery() {
     </div>
   );
 
+  const currentPhoto = photos[activePhotoIndex] || photos[0];
+
   return (
     <section className="gallery section" id="gallery" ref={sectionRef}>
       <div className="container gallery__container">
@@ -84,14 +116,12 @@ export default function Gallery() {
         </div>
 
         <div className="gallery__grid">
-          {/* BLOCK 1: Left = 1 Tall Photo, Right = 2 Stacked Photos */}
           <div className="gallery__block gallery__block--1">
             {renderPhotoCard(photos[0], 0, 'gallery__item--tall')}
             {renderPhotoCard(photos[1], 1, 'gallery__item--stacked-1')}
             {renderPhotoCard(photos[2], 2, 'gallery__item--stacked-2')}
           </div>
 
-          {/* BLOCK 2: Left = 2 Stacked Photos, Right = 1 Tall Photo */}
           <div className="gallery__block gallery__block--2">
             {renderPhotoCard(photos[3], 3, 'gallery__item--stacked-1')}
             {renderPhotoCard(photos[4], 4, 'gallery__item--stacked-2')}
@@ -106,35 +136,42 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
-        <div className="gallery__lightbox" onClick={() => setLightbox(null)}>
-          <button className="gallery__lb-close" onClick={() => setLightbox(null)} aria-label="Cerrar">
+      {/* Lightbox with smooth Fade-In / Fade-Out & Image Swap Transition */}
+      {shouldRenderLb && (
+        <div
+          className={`gallery__lightbox ${isLbClosing ? 'lb-closing' : 'lb-opening'}`}
+          onClick={closeLightbox}
+        >
+          <button className="gallery__lb-close" onClick={closeLightbox} aria-label="Cerrar">
             <i className="ri-close-line"></i>
           </button>
 
           <button
             className="gallery__lb-nav gallery__lb-prev"
-            onClick={(e) => { e.stopPropagation(); setLightbox((p) => (p - 1 + photos.length) % photos.length); }}
+            onClick={(e) => { e.stopPropagation(); setLightbox((p) => (p === null ? 0 : (p - 1 + photos.length) % photos.length)); }}
             aria-label="Foto anterior"
           >
             <i className="ri-arrow-left-s-line"></i>
           </button>
 
-          <div className="gallery__lb-img-wrap" onClick={(e) => e.stopPropagation()}>
+          <div
+            key={currentPhoto.id}
+            className="gallery__lb-img-wrap gallery__lb-img-swap"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
-              src={photos[lightbox].src}
-              alt={photos[lightbox].label}
+              src={currentPhoto.src}
+              alt={currentPhoto.label}
               className="gallery__lb-img"
             />
             <p className="gallery__lb-label">
-              {photos[lightbox].label} ({lightbox + 1} / {photos.length})
+              {currentPhoto.label} ({activePhotoIndex + 1} / {photos.length})
             </p>
           </div>
 
           <button
             className="gallery__lb-nav gallery__lb-next"
-            onClick={(e) => { e.stopPropagation(); setLightbox((p) => (p + 1) % photos.length); }}
+            onClick={(e) => { e.stopPropagation(); setLightbox((p) => (p === null ? 0 : (p + 1) % photos.length)); }}
             aria-label="Foto siguiente"
           >
             <i className="ri-arrow-right-s-line"></i>
@@ -144,7 +181,7 @@ export default function Gallery() {
             {photos.map((_, i) => (
               <span
                 key={i}
-                className={`gallery__lb-dot ${i === lightbox ? 'active' : ''}`}
+                className={`gallery__lb-dot ${i === activePhotoIndex ? 'active' : ''}`}
                 onClick={(e) => { e.stopPropagation(); setLightbox(i); }}
               />
             ))}
@@ -154,4 +191,3 @@ export default function Gallery() {
     </section>
   );
 }
-

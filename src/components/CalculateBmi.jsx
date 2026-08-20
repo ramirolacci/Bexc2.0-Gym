@@ -1,9 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CalculateBmi({ onOpenFreePass }) {
   const [cm, setCm] = useState('');
   const [kg, setKg] = useState('');
   const [result, setResult] = useState(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.calculate__content', {
+        x: -40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+        },
+      });
+
+      gsap.from('.calculate__img-container', {
+        x: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleCalculate = (e) => {
     e.preventDefault();
@@ -68,7 +101,7 @@ export default function CalculateBmi({ onOpenFreePass }) {
   };
 
   return (
-    <section className="calculate section" id="bmi">
+    <section className="calculate section" id="bmi" ref={sectionRef}>
       <div className="calculate__container container">
         <div className="calculate__content">
           <div className="calculate__header">

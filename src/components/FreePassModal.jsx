@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function FreePassModal({ isOpen, onClose }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsAnimatingOut(false);
+    } else if (shouldRender) {
+      setIsAnimatingOut(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsAnimatingOut(false);
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  if (!shouldRender) return null;
+
+  const handleClose = () => {
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      onClose();
+    }, 250);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,13 +39,19 @@ export default function FreePassModal({ isOpen, onClose }) {
     const whatsappUrl = `https://wa.me/5491144062027?text=${message}`;
 
     window.open(whatsappUrl, '_blank');
-    onClose();
+    handleClose();
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content grid" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
+    <div
+      className={`modal-overlay ${isAnimatingOut ? 'modal-overlay--out' : 'modal-overlay--in'}`}
+      onClick={handleClose}
+    >
+      <div
+        className={`modal-content grid ${isAnimatingOut ? 'modal-content--out' : 'modal-content--in'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="modal-close" onClick={handleClose}>
           <i className="ri-close-line"></i>
         </button>
 

@@ -35,68 +35,68 @@
 
 ---
 
-## 🖼️ Galería de Instalaciones y Experiencia BEXC
+## 🖼️ Galería de la Web
 
 <div align="center">
 
-  ### 📍 Instalaciones Principales (Bloque 2x2)
+  ### 📍 Vistas Principales
 
   <table>
     <tr>
       <td width="50%">
-        <img src="public/img/gallery/gym1.png" alt="Sala Principal de Musculación" />
+        <img src="public/screenshots/Home.png" alt="Inicio & Hero Section" />
         <br />
-        <sub style="color: #94a3b8;"><b>01. Sala Principal de Musculación</b></sub>
+        <sub style="color: #94a3b8;"><b>01. Inicio & Hero Section</b></sub>
       </td>
       <td width="50%">
-        <img src="public/img/gallery/gym2.png" alt="Equipamiento de Fuerza" />
+        <img src="public/screenshots/Gallery.png" alt="Galería de Instalaciones" />
         <br />
-        <sub style="color: #94a3b8;"><b>02. Equipamiento de Fuerza & Cardio</b></sub>
+        <sub style="color: #94a3b8;"><b>02. Galería de Instalaciones</b></sub>
       </td>
     </tr>
     <tr>
       <td width="50%">
-        <img src="public/img/gallery/gym3.png" alt="Área de Cardio y Cintas" />
+        <img src="public/screenshots/Schedules.png" alt="Horarios de Clases Grupales" />
         <br />
-        <sub style="color: #94a3b8;"><b>03. Área de Cintas & Cardio</b></sub>
+        <sub style="color: #94a3b8;"><b>03. Horarios de Clases Grupales</b></sub>
       </td>
       <td width="50%">
-        <img src="public/img/gallery/gym4.png" alt="Zona CrossFit WOD" />
+        <img src="public/screenshots/Choose%20Us.png" alt="¿Por qué elegirnos?" />
         <br />
-        <sub style="color: #94a3b8;"><b>04. Zona CrossFit & Funcional</b></sub>
+        <sub style="color: #94a3b8;"><b>04. ¿Por qué elegirnos? & Amenities</b></sub>
       </td>
     </tr>
   </table>
 
   <br />
 
-  ### ⚡ Áreas Especiales (Bloque 2x1)
+  ### ⚡ Funcionalidades Interactividades
 
   <table>
     <tr>
       <td width="50%">
-        <img src="public/img/gallery/gym5.png" alt="Sector de Peso Libre" />
+        <img src="public/screenshots/Plans.png" alt="Planes y Precios" />
         <br />
-        <sub style="color: #94a3b8;"><b>05. Sector de Peso Libre & Mancuernas</b></sub>
+        <sub style="color: #94a3b8;"><b>05. Planes y Precios</b></sub>
       </td>
       <td width="50%">
-        <img src="public/img/gallery/gym6.png" alt="Box Funcional y Clases" />
+        <img src="public/screenshots/Calculate%20Your%20BMI.png" alt="Calculadora de IMC" />
         <br />
-        <sub style="color: #94a3b8;"><b>06. Box Funcional & Clases Grupales</b></sub>
+        <sub style="color: #94a3b8;"><b>06. Calculadora de IMC & Metas</b></sub>
       </td>
     </tr>
   </table>
 
   <br />
 
-  ### 🔥 Atletas & Comunidad BEXC (Formato Destacado)
+  ### 🔥 Ubicación & Preguntas Frecuentes
 
   <table>
     <tr>
       <td width="100%" align="center">
-        <img src="public/img/home-img.png" alt="Comunidad BEXC 2.0" width="100%" />
+        <img src="public/screenshots/FAQ.png" alt="Preguntas Frecuentes & Ubicación" width="100%" />
         <br />
-        <sub style="color: #94a3b8;"><b>07. Atletas & Filosofía de Entrenamiento BEXC 2.0</b></sub>
+        <sub style="color: #94a3b8;"><b>07. Preguntas Frecuentes & Mapa de Ubicación</b></sub>
       </td>
     </tr>
   </table>
